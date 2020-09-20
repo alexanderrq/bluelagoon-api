@@ -1,4 +1,4 @@
-package com.bluelagoon.blmanagement;
+package com.bluelagoon.blmanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Greeting {
-    private Long greetingId;
-    private String content;
+public class MessageResponse {
+
+    private String message;
 }
