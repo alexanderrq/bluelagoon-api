@@ -24,7 +24,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,7 +74,7 @@ public class AuthService {
                     .body(new MessageResponse("ERROR: email is already in use!"));
         } else {
             List<String> strRoles = signUpRequest.getRoles();
-            List<Role> roles = new ArrayList<>();
+            Set<Role> roles = new HashSet<>();
 
             if (strRoles == null) {
                 log.info("role admin", roleRepository.findByRoleName(ERole.ROLE_ADMIN));
