@@ -76,7 +76,7 @@ public class AuthService {
 
             if (strRoles == null) {
                 Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
-                        .orElseThrow(() -> new RuntimeException("ERROR: Role is not found!"));
+                        .orElseThrow(() -> new RuntimeException("ERROR! User Role not found!!"));
                 roles.add(userRole);
             } else {
                 strRoles.forEach(role -> {
