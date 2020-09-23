@@ -73,9 +73,6 @@ public class AuthService {
         } else {
             List<String> strRoles = signUpRequest.getRoles();
             List<Role> roles = new ArrayList<>();
-            log.error(roleRepository.findByRoleName(ERole.ROLE_ADMIN).toString());
-            log.error(roleRepository.findByRoleName(ERole.ROLE_MODERATOR).toString());
-            log.error(roleRepository.findByRoleName(ERole.ROLE_USER).toString());
 
             if (strRoles == null) {
                 Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
@@ -83,23 +80,20 @@ public class AuthService {
                 roles.add(userRole);
             } else {
                 strRoles.forEach(role -> {
-                    switch (role) {
-                        case "admin":
-                            Role adminRole = roleRepository.findByRoleName(ERole.ROLE_ADMIN)
-                                    .orElseThrow(() -> new RuntimeException("ERROR: Role is not found!"));
-                            roles.add(adminRole);
-                            break;
-                        case "mod":
-                            Role modRole = roleRepository.findByRoleName(ERole.ROLE_MODERATOR)
-                                    .orElseThrow(() -> new RuntimeException("ERROR: Role is not found!"));
-                            roles.add(modRole);
-                            break;
-                        case "user":
-                            Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
-                                    .orElseThrow(() -> new RuntimeException("ERROR: Role is not found!"));
-                            roles.add(userRole);
-                        default:
-                            throw new RuntimeException("ERROR: INVALID ROLE REQUEST");
+                    if (role.equalsIgnoreCase("admin")) {
+                        Role adminRole = roleRepository.findByRoleName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("ERROR! Admin role not found"));
+                        roles.add(adminRole);
+                    } else if (role.equalsIgnoreCase("mod")) {
+                        Role modRole = roleRepository.findByRoleName(ERole.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("ERROR! Mod role not found"));
+                        roles.add(modRole);
+                    } else if (role.equalsIgnoreCase("user")) {
+                        Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("ERROR! User Role not found"));
+                        roles.add(userRole);
+                    } else {
+                        throw new RuntimeException("INVALID ROLE");
                     }
                 });
             }
