@@ -24,9 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,12 +72,12 @@ public class AuthService {
                     .body(new MessageResponse("ERROR: email is already in use!"));
         } else {
             List<String> strRoles = signUpRequest.getRoles();
-            Set<Role> roles = new HashSet<>();
+            List<Role> roles = new ArrayList<>();
+            log.error(roleRepository.findByRoleName(ERole.ROLE_ADMIN).toString());
+            log.error(roleRepository.findByRoleName(ERole.ROLE_MODERATOR).toString());
+            log.error(roleRepository.findByRoleName(ERole.ROLE_USER).toString());
 
             if (strRoles == null) {
-                log.info("role admin", roleRepository.findByRoleName(ERole.ROLE_ADMIN));
-                log.info("role user", roleRepository.findByRoleName(ERole.ROLE_USER));
-                log.info("role mod", roleRepository.findByRoleName(ERole.ROLE_MODERATOR));
                 Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
                         .orElseThrow(() -> new RuntimeException("ERROR: Role is not found!"));
                 roles.add(userRole);
