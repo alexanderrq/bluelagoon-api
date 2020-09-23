@@ -74,7 +74,7 @@ public class AuthService {
             List<String> strRoles = signUpRequest.getRoles();
             List<Role> roles = new ArrayList<>();
 
-            if (strRoles == null) {
+            if (strRoles.isEmpty()) {
                 Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
                         .orElseThrow(() -> new RuntimeException("ERROR! User Role not found!!"));
                 roles.add(userRole);
