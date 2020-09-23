@@ -75,6 +75,9 @@ public class AuthService {
             List<Role> roles = new ArrayList<>();
 
             if (strRoles == null) {
+                log.info("role admin", roleRepository.findByRoleName(ERole.ROLE_ADMIN));
+                log.info("role user", roleRepository.findByRoleName(ERole.ROLE_USER));
+                log.info("role mod", roleRepository.findByRoleName(ERole.ROLE_MODERATOR));
                 Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
                         .orElseThrow(() -> new RuntimeException("ERROR: Role is not found!"));
                 roles.add(userRole);
